@@ -22,7 +22,7 @@ public class PlayerDatabase : MonoBehaviour {
 	public List<PlayerDataClass> PlayerList = new List<PlayerDataClass>();
 
 	// This is used to add the player to the list in the first place
-	public NetworkPlayer networkPlayer;
+	public int networkPlayer;
 
 	// These are used to update the player list with the name of the player
 	public bool nameSet = false;
@@ -77,7 +77,7 @@ public class PlayerDatabase : MonoBehaviour {
 	void OnPlayerConnected (NetworkPlayer netPlayer)
 	{
 		// Add the player to the list. This is executed on the server
-		networkView.RPC("AddPlayerToLst", RPCMode.AllBuffered, netPlayer);
+		networkView.RPC("AddPlayerToList", RPCMode.AllBuffered, netPlayer);
 	}
 
 
@@ -105,7 +105,7 @@ public class PlayerDatabase : MonoBehaviour {
 		// networkplayer ID and then remove them
 		for(int i = 0; i < PlayerList.Count; i++)
 		{
-			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString))
+			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString()))
 			{
 				PlayerList.RemoveAt(i);
 			}
@@ -119,7 +119,7 @@ public class PlayerDatabase : MonoBehaviour {
 		// networkplayer ID and then add their name to the list
 		for(int i = 0; i < PlayerList.Count; i++)
 		{
-			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString))
+			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString()))
 			{
 				PlayerList[i].playerName = pName;
 			}
@@ -133,7 +133,7 @@ public class PlayerDatabase : MonoBehaviour {
 		// networkplayer ID and then edit their score to the list
 		for(int i = 0; i < PlayerList.Count; i++)
 		{
-			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString))
+			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString()))
 			{
 				PlayerList[i].playerScore = pScore;
 			}
@@ -147,12 +147,10 @@ public class PlayerDatabase : MonoBehaviour {
 		// networkplayer ID and then add their team to the list
 		for(int i = 0; i < PlayerList.Count; i++)
 		{
-			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString))
+			if(PlayerList[i].networkPlayer == int.Parse(nPlayer.ToString()))
 			{
 				PlayerList[i].playerTeam = pTeam;
 			}
 		}
 	}
-
-	// http://www.youtube.com/watch?v=NV8qoQBVPH8 45:33
 }

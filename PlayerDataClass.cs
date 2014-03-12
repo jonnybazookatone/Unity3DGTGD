@@ -13,7 +13,7 @@ public class PlayerDataClass {
 	public int networkPlayer;
 	public string playerName;
 	public int playerScore;
-	public int playerTeam;
+	public string playerTeam;
 
 	// Variables end__________
 

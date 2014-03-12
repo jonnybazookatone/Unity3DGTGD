@@ -12,7 +12,6 @@ public class CameraScript : MonoBehaviour {
 	// Variables start___________________________
 
 	private Camera myCamera;
-
 	private Transform cameraHeadTransform;
 
 	// Variables end_____________________________
@@ -21,18 +20,22 @@ public class CameraScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		myCamera = Camera.main;
-
-		cameraHeadTransform = transform.FindChild("CameraHead");
+		if(networkView.isMine == true)
+		{
+			myCamera = Camera.main;
+			cameraHeadTransform = transform.FindChild("CameraHead");
+		}
+		else
+		{
+			enabled = false;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		// Make the camera follow the Player's camera head transform
-
 		myCamera.transform.position = cameraHeadTransform.position;
-
 		myCamera.transform.rotation = cameraHeadTransform.rotation;
 	}
 }

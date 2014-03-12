@@ -2,9 +2,15 @@
 using System.Collections;
 
 /// <summary>
+/// This script is attached to the MultiplayerManager and it
+/// is the foundation for our multiplayer system
+/// 
+/// This script is accessed by the CursorControl script
+/// 
 /// All code is taken from Gamer To Game Developer Series 1
 /// http://www.gamertogamedeveloper.com
 /// No credit is taken myself
+///
 /// 
 /// </summary>
 
@@ -47,7 +53,7 @@ public class MultiplayerScript : MonoBehaviour {
 	private Rect clientDisWindowRect;
 	private int clientDisWindowWidth = 300;
 	private int clientDisWindowHeight = 170;
-	private bool showDisconnectWindow = false;
+	public bool showDisconnectWindow = false;
 
 	// Variables end____________________________
 
@@ -222,7 +228,6 @@ public class MultiplayerScript : MonoBehaviour {
 		{
 			Network.Disconnect();
 		}
-		// Time of video: 1:14:45
 	}
 
 

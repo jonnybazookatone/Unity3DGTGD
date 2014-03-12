@@ -5,6 +5,8 @@ using System.Collections;
 /// This script is attached to the Blaster projectile 
 /// and it governs the behaviour of the projectile.
 /// 
+/// This script is accessed by the FireBlaster script.
+/// 
 /// All code is taken from Gamer To Game Developer Series 1
 /// http://www.gamertogamedeveloper.com
 /// No credit is taken myself
@@ -37,7 +39,11 @@ public class BlasterScript : MonoBehaviour {
 
 	// The life span of the projectile
 	private float expireTime = 5;
-	
+
+	// Used in hit detection
+	public string team;
+	public string myOriginator;
+
 	// Variables end________________________
 
 	// Use this for initialization
@@ -76,6 +82,40 @@ public class BlasterScript : MonoBehaviour {
 
 				// Turn off its light so that the halo also dissapears
 				myTransform.light.enabled = false;
+			}
+
+			if(hit.transform.tag == "BlueTeamTrigger" ||
+			   hit.transform.tag == "RedTeamTrigger")
+			{
+				expended = true;
+
+				// Instantiate an explosion effect
+				Instantiate(BlasterExplosion, hit.point, Quaternion.identity);
+				
+				// Make the projectile become invisible
+				myTransform.renderer.enabled = false;
+				
+				// Turn off its light so that the halo also dissapears
+				myTransform.light.enabled = false;
+
+				// Access the HealthAndDamage script of the enemy player
+				// and inform them that they have been attacked and by
+				// whom
+				if(hit.transform.tag == "BlueTeamTrigger" && team == "red")
+				{
+					HealthAndDamage HDScript = hit.transform.GetComponent<HealthAndDamage>();
+					HDScript.iWasJustAttacked = true;
+					HDScript.myAttacker = myOriginator;
+					HDScript.hitByBlaster = true;
+				}
+
+				if(hit.transform.tag == "RedTeamTrigger" && team == "blue")
+				{
+					HealthAndDamage HDScript = hit.transform.GetComponent<HealthAndDamage>();
+					HDScript.iWasJustAttacked = true;
+					HDScript.myAttacker = myOriginator;
+					HDScript.hitByBlaster = true;
+				}
 			}
 		}
 	}

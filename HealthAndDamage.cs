@@ -11,6 +11,9 @@ using System.Collections;
 /// 
 /// This script is accessed by the BlasterScript
 /// 
+/// This script accesses the SpawnScript to inform the player that they
+/// have been destroyed
+/// 
 /// All code is taken from Gamer To Game Developer Series 1
 /// http://www.gamertogamedeveloper.com
 /// No credit is taken myself
@@ -104,6 +107,12 @@ public class HealthAndDamage : MonoBehaviour {
 		// Each player is responsible for destroying themselves
 		if(myHealth <=0 && networkView.isMine == true)
 		{
+			// Access the spawn script and set the iAmDestroyed bool
+			// to true so that this player can respawn
+			GameObject spawnManager = GameObject.Find("SpawnManager");
+			SpawnScript spawnScript = spawnManager.GetComponent<SpawnScript>();
+			spawnScript.iAmDestroyed = true;
+
 			// Remove this player's RPCs. If we didn't do this
 			// a ghost of the player would remain in the game
 			// which would be very confusing for players just
