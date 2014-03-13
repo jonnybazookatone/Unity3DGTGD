@@ -14,6 +14,8 @@ using System.Collections;
 /// This script accesses the SpawnScript to inform the player that they
 /// have been destroyed
 /// 
+/// This script is accessed by the StatDisplay script 
+/// 
 /// All code is taken from Gamer To Game Developer Series 1
 /// http://www.gamertogamedeveloper.com
 /// No credit is taken myself
