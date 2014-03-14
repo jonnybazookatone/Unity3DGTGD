@@ -90,5 +90,11 @@ public class StatDisplay : MonoBehaviour {
 		// Draw a grey box behind the health bar 
 		GUI.Box(new Rect(commonLeft+padding, commonTop+padding, 100, healthBarHeight), ""); 
 
+		// Draw the health bar and make it be dependent on the player's current health
+		GUI.DrawTexture(new Rect(commonLeft+padding, commonTop+padding, healthBarLength,
+		                         healthBarHeight), healthTex);
+
+		GUI.Label(new Rect(commonLeft+gap, commonTop+padding, labelWidth, labelHeight),
+		          healthForDisplay.ToString(), healthStyle);
 	}
 }

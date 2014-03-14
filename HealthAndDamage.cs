@@ -16,6 +16,8 @@ using System.Collections;
 /// 
 /// This script is accessed by the StatDisplay script 
 /// 
+/// This script is accessed by the PlayerLabel script
+/// 
 /// All code is taken from Gamer To Game Developer Series 1
 /// http://www.gamertogamedeveloper.com
 /// No credit is taken myself
