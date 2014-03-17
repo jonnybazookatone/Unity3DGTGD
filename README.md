@@ -2,7 +2,10 @@ Unity3DGTGD
 ===========
 
 author: Jonny Elliott
+
 date: 2014
+
+progress: Season 1 Episode 7 (out of 34)
 
 A game project utilising the Unity 3D engine with the scripts written in C#.
 
