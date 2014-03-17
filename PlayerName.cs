@@ -4,8 +4,15 @@ using System.Collections;
 /// <summary>
 /// This script incorporates the player's name into the game
 /// 
-/// This script accesses the PlayerDatabase scipr to tell it to
+/// This script accesses the PlayerDatabase script to tell it to
 /// add the player's name to the PlayerList
+/// 
+/// This script accesses the PlayerLabel script to supply it with
+/// the player's name
+/// 
+/// All code is taken from Gamer To Game Developer Series 1
+/// http://www.gamertogamedeveloper.com
+/// No credit is taken myself
 /// </summary>
 
 public class PlayerName : MonoBehaviour {
@@ -68,5 +75,9 @@ public class PlayerName : MonoBehaviour {
 		// player name
 		gameObject.name = pName;
 		playerName = pName;
+
+		// Supply the PlayerLabel script with the player's name
+		PlayerLabel labelScript = transform.GetComponent<PlayerLabel>();
+		labelScript.playerName = pName;
 	}
 }
