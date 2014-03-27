@@ -10,6 +10,8 @@ using System.Collections;
 /// 
 /// This script is accessed by the HealthAndDamage script
 /// 
+/// This script is accessed by the AssignedHealth script to see if firstSpawn is true
+/// 
 /// All code is taken from Gamer To Game Developer Series 1
 /// http://www.gamertogamedeveloper.com
 /// No credit is taken myself
@@ -51,6 +53,10 @@ public class SpawnScript : MonoBehaviour {
 	// Used in determining whether the player has been destroyed
 	public bool iAmDestroyed = false;
 
+	// Used in determining if the player has spawned for the first
+	// time
+	public bool firstSpawn = false;
+
 	// Variables end______________________
 
 	// Use this for initialization
@@ -82,6 +88,7 @@ public class SpawnScript : MonoBehaviour {
 				amIOnTheRedTeam = true;
 				justConnectedToServer = false;
 				SpawnRedTeamPlayer();
+				firstSpawn = true;
 			}
 
 			// If the player clicks on the Join Blue Team button then
@@ -92,6 +99,7 @@ public class SpawnScript : MonoBehaviour {
 				amIOnTheBlueTeam = true;
 				justConnectedToServer = false;
 				SpawnBlueTeamPlayer();
+				firstSpawn = true;
 			}
 		}
 

@@ -45,6 +45,7 @@ public class HealthAndDamage : MonoBehaviour {
 	public float myHealth = 100;
 	public float maxHealth = 100;
 	private float healthRegenRate = 1.3f;
+	public float previousHealth = 100;
 
 	// Variables end__________________________
 
@@ -86,7 +87,7 @@ public class HealthAndDamage : MonoBehaviour {
 							                 myAttacker);
 
 							// Send out an RPC so that this player's health is reduced
-							// accross the network
+							// across the network
 							networkView.RPC("UpdateMyCurrentHealthEverywhere", RPCMode.Others,
 							                myHealth);
 						}
@@ -94,18 +95,6 @@ public class HealthAndDamage : MonoBehaviour {
 				}
 			}
 			iWasJustAttacked = false;
-		}
-		// Regen the player's health if it is below the max health
-		if(myHealth < maxHealth)
-		{
-			myHealth = myHealth + healthRegenRate*Time.deltaTime;
-		}
-
-		// If the player's health exceeds the max health while regenerating
-		// then set it back to the max health
-		if(myHealth > maxHealth)
-		{
-			myHealth = maxHealth;
 		}
 
 		// Each player is responsible for destroying themselves
@@ -127,6 +116,29 @@ public class HealthAndDamage : MonoBehaviour {
 			// network
 			networkView.RPC("DestroySelf", RPCMode.All);
 		}
+
+		// If the player's health is different from their previous health then
+		// update the health record across the network and buffer it
+		if(myHealth > 0 && networkView.isMine == true)
+		{
+			if(myHealth != previousHealth)
+			{
+				networkView.RPC("UpdateMyHealthRecordEverywhere", RPCMode.AllBuffered, myHealth);
+			}
+		}
+
+		// Regen the player's health if it is below the max health
+		if(myHealth < maxHealth)
+		{
+			myHealth = myHealth + healthRegenRate*Time.deltaTime;
+		}
+		
+		// If the player's health exceeds the max health while regenerating
+		// then set it back to the max health
+		if(myHealth > maxHealth)
+		{
+			myHealth = maxHealth;
+		}
 	}
 
 	[RPC]
@@ -145,5 +157,11 @@ public class HealthAndDamage : MonoBehaviour {
 	void DestroySelf()
 	{
 		Destroy(parentObject);
+	}
+
+	[RPC]
+	void UpdateMyHealthRecordEverywhere(float health)
+	{
+		previousHealth = health;
 	}
 }
